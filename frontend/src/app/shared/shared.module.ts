@@ -4,7 +4,7 @@ import { NgbCollapseModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstra
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faFilter, faAngleDown, faAngleUp, faAngleRight, faAngleLeft, faBolt, faChartArea, faCogs, faCubes, faHammer, faDatabase, faExchangeAlt, faInfoCircle,
   faLink, faList, faSearch, faCaretUp, faCaretDown, faTachometerAlt, faThList, faTint, faTv, faClock, faAngleDoubleDown, faSortUp, faAngleDoubleUp, faChevronDown,
-  faFileAlt, faRedoAlt, faArrowAltCircleRight, faExternalLinkAlt, faBook, faListUl, faDownload, faQrcode, faArrowRightArrowLeft, faArrowsRotate, faCircleLeft, faFastForward, faWallet, faUserClock, faWrench, faUserFriends, faQuestionCircle, faHistory, faSignOutAlt, faKey, faSuitcase, faIdCardAlt, faNetworkWired, faUserCheck, faCircleCheck, faUserCircle, faCheck, faRocket, faScaleBalanced, faHourglassStart, faHourglassHalf, faHourglassEnd, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
+  faFileAlt, faRedoAlt, faArrowAltCircleRight, faExternalLinkAlt, faBook, faListUl, faDownload, faQrcode, faArrowRightArrowLeft, faArrowsRotate, faCircleLeft, faFastForward, faWallet, faUserClock, faWrench, faUserFriends, faQuestionCircle, faHistory, faSignOutAlt, faKey, faSuitcase, faIdCardAlt, faNetworkWired, faUserCheck, faCircleCheck, faUserCircle, faCheck, faRocket, faScaleBalanced, faHourglassStart, faHourglassHalf, faHourglassEnd, faWandMagicSparkles, faFaucetDrip, faTimeline } from '@fortawesome/free-solid-svg-icons';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MenuComponent } from '../components/menu/menu.component';
 import { PreviewTitleComponent } from '../components/master-page-preview/preview-title.component';
@@ -70,6 +70,7 @@ import { AddressTransactionsWidgetComponent } from '../components/address-transa
 import { RbfTimelineComponent } from '../components/rbf-timeline/rbf-timeline.component';
 import { RbfTimelineTooltipComponent } from '../components/rbf-timeline/rbf-timeline-tooltip.component';
 import { PushTransactionComponent } from '../components/push-transaction/push-transaction.component';
+import { TestTransactionsComponent } from '../components/test-transactions/test-transactions.component';
 import { AssetsFeaturedComponent } from '../components/assets/assets-featured/assets-featured.component';
 import { AssetGroupComponent } from '../components/assets/asset-group/asset-group.component';
 import { AssetCirculationComponent } from '../components/asset-circulation/asset-circulation.component';
@@ -112,6 +113,9 @@ import { ClockComponent } from '../components/clock/clock.component';
 import { CalculatorComponent } from '../components/calculator/calculator.component';
 import { BitcoinsatoshisPipe } from '../shared/pipes/bitcoinsatoshis.pipe';
 import { HttpErrorComponent } from '../shared/components/http-error/http-error.component';
+import { TwitterWidgetComponent } from '../components/twitter-widget/twitter-widget.component';
+import { FaucetComponent } from '../components/faucet/faucet.component';
+import { TwitterLogin } from '../components/twitter-login/twitter-login.component';
 
 import { OnlyVsizeDirective, OnlyWeightDirective } from './components/weight-directives/weight-directives';
 
@@ -180,6 +184,7 @@ import { OnlyVsizeDirective, OnlyWeightDirective } from './components/weight-dir
     RbfTimelineComponent,
     RbfTimelineTooltipComponent,
     PushTransactionComponent,
+    TestTransactionsComponent,
     AssetsNavComponent,
     AssetsFeaturedComponent,
     AssetGroupComponent,
@@ -224,6 +229,9 @@ import { OnlyVsizeDirective, OnlyWeightDirective } from './components/weight-dir
     AccelerateCheckout,
     PendingStatsComponent,
     HttpErrorComponent,
+    TwitterWidgetComponent,
+    FaucetComponent,
+    TwitterLogin,
   ],
   imports: [
     CommonModule,
@@ -318,6 +326,7 @@ import { OnlyVsizeDirective, OnlyWeightDirective } from './components/weight-dir
     RbfTimelineComponent,
     RbfTimelineTooltipComponent,
     PushTransactionComponent,
+    TestTransactionsComponent,
     AssetsNavComponent,
     AssetsFeaturedComponent,
     AssetGroupComponent,
@@ -351,6 +360,8 @@ import { OnlyVsizeDirective, OnlyWeightDirective } from './components/weight-dir
     AccelerateCheckout,
     PendingStatsComponent,
     HttpErrorComponent,
+    TwitterWidgetComponent,
+    TwitterLogin,
 
     MempoolBlockOverviewComponent,
     ClockchainComponent,
@@ -426,5 +437,7 @@ export class SharedModule {
     library.addIcons(faHourglassHalf);
     library.addIcons(faHourglassEnd);
     library.addIcons(faWandMagicSparkles);
+    library.addIcons(faFaucetDrip);
+    library.addIcons(faTimeline);
   }
 }

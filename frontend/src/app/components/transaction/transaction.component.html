@@ -419,7 +419,11 @@
 <ng-template #detailsRight>
   <ng-container *ngTemplateOutlet="feeRow"></ng-container>
   <ng-container *ngTemplateOutlet="feeRateRow"></ng-container>
-  <ng-container *ngTemplateOutlet="effectiveRateRow"></ng-container>
+  @if (!isLoadingTx && !tx?.status?.confirmed && isAcceleration && ((cpfpInfo && hasEffectiveFeeRate) || accelerationInfo)) {
+    <ng-container *ngTemplateOutlet="acceleratingRow"></ng-container>
+  } @else {
+    <ng-container *ngTemplateOutlet="effectiveRateRow"></ng-container>
+  }
   @if (tx?.status?.confirmed) {
     <ng-container *ngTemplateOutlet="minerRow"></ng-container>
   }
@@ -446,7 +450,7 @@
     @if (transactionTime > 0) {
       <tr>
         <td i18n="transaction.confirmed|Transaction Confirmed state">Confirmed</td>
-        <td><app-time kind="span" [time]="tx.status.block_time - transactionTime" [fastRender]="true" [relative]="true"></app-time></td>
+        <td><app-time kind="span" [time]="tx.status.block_time" [fastRender]="true" [showTooltip]="true"></app-time></td>
       </tr>
     }
   } @else {
@@ -460,7 +464,7 @@
   } @else if (transactionTime > 0) {
     <tr>
       <td i18n="transaction.first-seen|Transaction first seen">First seen</td>
-      <td><i><app-time kind="since" [time]="transactionTime" [fastRender]="true"></app-time></i></td>
+      <td><i><app-time kind="since" [time]="transactionTime" [fastRender]="true" [showTooltip]="true"></app-time></i></td>
     </tr>
   } @else {
     <tr>
@@ -636,6 +640,15 @@
   } @else {
     <ng-container *ngTemplateOutlet="skeletonDetailsRow"></ng-container>
   }
+</ng-template>
+
+<ng-template #acceleratingRow>
+  <tr>
+    <td rowspan="2" colspan="2" style="padding: 0;">
+      <app-active-acceleration-box [tx]="tx" [accelerationInfo]="accelerationInfo" [miningStats]="miningStats"></app-active-acceleration-box>
+    </td>
+  </tr>
+  <tr></tr>
 </ng-template>
 
 <ng-template #minerRow>

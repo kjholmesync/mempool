@@ -5,6 +5,7 @@ import { AbstractBitcoinApi, HealthCheckHost } from './bitcoin-api-abstract-fact
 import { IEsploraApi } from './esplora-api.interface';
 import logger from '../../logger';
 import { Common } from '../common';
+import { TestMempoolAcceptResult } from './bitcoin-api.interface';
 
 interface FailoverHost {
   host: string,
@@ -24,6 +25,7 @@ interface FailoverHost {
 class FailoverRouter {
   activeHost: FailoverHost;
   fallbackHost: FailoverHost;
+  maxSlippage: number = config.ESPLORA.MAX_BEHIND_TIP ?? 2;
   maxHeight: number = 0;
   hosts: FailoverHost[];
   multihost: boolean;
@@ -92,13 +94,13 @@ class FailoverRouter {
         );
         if (result) {
           const height = result.data;
-          this.maxHeight = Math.max(height, this.maxHeight);
+          this.maxHeight = Math.max(height || 0, ...this.hosts.map(host => (!(host.unreachable || host.timedOut || host.outOfSync) ? host.latestHeight || 0 : 0)));
           const rtt = result.config['meta'].rtt;
           host.rtts.unshift(rtt);
           host.rtts.slice(0, 5);
           host.rtt = host.rtts.reduce((acc, l) => acc + l, 0) / host.rtts.length;
           host.latestHeight = height;
-          if (height == null || isNaN(height) || (this.maxHeight - height > 2)) {
+          if (height == null || isNaN(height) || (this.maxHeight - height > this.maxSlippage)) {
             host.outOfSync = true;
           } else {
             host.outOfSync = false;
@@ -324,6 +326,10 @@ class ElectrsApi implements AbstractBitcoinApi {
   }
 
   $sendRawTransaction(rawTransaction: string): Promise<string> {
+    throw new Error('Method not implemented.');
+  }
+
+  $testMempoolAccept(rawTransactions: string[], maxfeerate?: number): Promise<TestMempoolAcceptResult[]> {
     throw new Error('Method not implemented.');
   }
 

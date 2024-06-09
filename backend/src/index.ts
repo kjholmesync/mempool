@@ -45,6 +45,7 @@ import bitcoinCoreRoutes from './api/bitcoin/bitcoin-core.routes';
 import bitcoinSecondClient from './api/bitcoin/bitcoin-second-client';
 import accelerationRoutes from './api/acceleration/acceleration.routes';
 import aboutRoutes from './api/about.routes';
+import mempoolBlocks from './api/mempool-blocks';
 
 class Server {
   private wss: WebSocket.Server | undefined;
@@ -131,6 +132,7 @@ class Server {
       })
       .use(express.urlencoded({ extended: true }))
       .use(express.text({ type: ['text/plain', 'application/base64'] }))
+      .use(express.json())
       ;
 
     if (config.DATABASE.ENABLED && config.FIAT_PRICE.ENABLED) {
@@ -148,6 +150,7 @@ class Server {
 
     await poolsUpdater.updatePoolsJson(); // Needs to be done before loading the disk cache because we sometimes wipe it
     await syncAssets.syncAssets$();
+    await mempoolBlocks.updatePools$();
     if (config.MEMPOOL.ENABLED) {
       if (config.MEMPOOL.CACHE_ENABLED) {
         await diskCache.$loadMempoolCache();

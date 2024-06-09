@@ -51,6 +51,7 @@ interface IConfig {
     REQUEST_TIMEOUT: number;
     FALLBACK_TIMEOUT: number;
     FALLBACK: string[];
+    MAX_BEHIND_TIP: number;
   };
   LIGHTNING: {
     ENABLED: boolean;
@@ -141,6 +142,8 @@ interface IConfig {
     ENABLED: boolean;
     AUDIT: boolean;
     AUDIT_START_HEIGHT: number;
+    STATISTICS: boolean;
+    STATISTICS_START_TIME: number | string;
     SERVERS: string[];
   },
   MEMPOOL_SERVICES: {
@@ -208,6 +211,7 @@ const defaults: IConfig = {
     'REQUEST_TIMEOUT': 10000,
     'FALLBACK_TIMEOUT': 5000,
     'FALLBACK': [],
+    'MAX_BEHIND_TIP': 2,
   },
   'ELECTRUM': {
     'HOST': '127.0.0.1',
@@ -298,6 +302,8 @@ const defaults: IConfig = {
     'ENABLED': false,
     'AUDIT': false,
     'AUDIT_START_HEIGHT': 774000,
+    'STATISTICS': false,
+    'STATISTICS_START_TIME': 1481932800,
     'SERVERS': [],
   },
   'MEMPOOL_SERVICES': {

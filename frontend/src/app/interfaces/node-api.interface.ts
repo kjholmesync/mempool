@@ -29,6 +29,7 @@ export interface CpfpInfo {
   sigops?: number;
   adjustedVsize?: number;
   acceleration?: boolean;
+  acceleratedBy?: number[];
 }
 
 export interface RbfInfo {
@@ -132,6 +133,7 @@ export interface ITranslators { [language: string]: string; }
  */
 export interface SinglePoolStats {
   poolId: number;
+  poolUniqueId: number; // unique global pool id
   name: string;
   link: string;
   blockCount: number;
@@ -245,7 +247,13 @@ export interface RbfTransaction extends TransactionStripped {
 export interface MempoolPosition {
   block: number,
   vsize: number,
-  accelerated?: boolean
+  accelerated?: boolean,
+  acceleratedBy?: number[],
+}
+
+export interface AccelerationPosition extends MempoolPosition {
+  pool: string;
+  offset?: number;
 }
 
 export interface RewardStats {
@@ -423,4 +431,17 @@ export interface AccelerationInfo {
   effective_fee: number,
   boost_rate: number,
   boost_cost: number,
+}
+
+export interface TestMempoolAcceptResult {
+  txid: string,
+  wtxid: string,
+  allowed?: boolean,
+  vsize?: number,
+  fees?: {
+    base: number,
+    "effective-feerate": number,
+    "effective-includes": string[],
+  },
+  ['reject-reason']?: string,
 }
